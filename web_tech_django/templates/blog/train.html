@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .full-width-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .green-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .green-button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #4CAF50;
+            padding: 5px 10px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+        }
+
+        li a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Train Booking</h1>
+
+    <section>
+        <h2>Search for Trains</h2>
+
+            {% csrf_token %}
+            <label for="origin" class="input-label">Origin:</label>
+            <input type="text" id="origin" name="origin" class="full-width-input" required><br>
+
+            <label for="destination" class="input-label">Destination:</label>
+            <input type="text" id="destination" name="destination" class="full-width-input" required><br>
+
+            <label for="departure_date" class="input-label">Departure Date:</label>
+            <input type="date" id="departure_date" name="departure_date" class="full-width-input" required><br>
+
+            <label for="seat_class" class="input-label">Seat Class:</label>
+            <select id="seat_class" name="seat_class" class="full-width-input">
+                <option value="1st_class">1st Class</option>
+                <option value="2nd_class">2nd Class</option>
+                <option value="economy_class">Economy Class</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label for="num_seats" class="input-label">Number of Seats:</label>
+            <input type="number" id="num_seats" name="num_seats" class="full-width-input" required min="1"><br>
+
+            <button type="submit" class="green-button">Book Trains</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Available Trains</h2>
+        <ul>
+            <!-- Display available trains -->
+            {% for train in available_trains %}
+                <li>
+                    Train: {{ train.name }}
+                    Origin: {{ train.origin }}
+                    Destination: {{ train.destination }}
+                    Departure Time: {{ train.departure_time }}
+                    Arrival Time: {{ train.arrival_time }}
+                    Seat Class: {{ train.seat_class }}
+
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
